@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Govu ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: Georgia, serif;
+            background: radial-gradient(circle at top, #705064, #211d2a 75%);
+            color: #fff7ef;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            padding: 35px 25px;
+            text-align: center;
+            border: 1px solid #d7b6a477;
+            background: #fffaf010;
+            box-shadow: 0 18px 55px #0005;
+            border-radius: 18px;
+        }
+
+        .lock {
+            font-size: 60px;
+        }
+
+        .label {
+            margin-top: 15px;
+            font: bold 11px Arial, sans-serif;
+            letter-spacing: 3px;
+            color: #edc9bb;
+        }
+
+        h1 {
+            font-size: clamp(30px, 8vw, 42px);
+            margin: 15px 0;
+        }
+
+        p {
+            line-height: 1.7;
+            color: #f0dcd5;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #d7b6a4;
+            border-radius: 8px;
+            font-size: 18px;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 18px;
+            border: 0;
+            border-radius: 8px;
+            background: #c45e55;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #a94f45;
+        }
+
+        #error {
+            color: #ffc2b8;
+            font: 13px Arial, sans-serif;
+            min-height: 18px;
+        }
+
+        .small {
+            font-size: 12px;
+            color: #d9bdb3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <div class="lock">🔒</div>
+
+        <div class="label">A LITTLE BIRTHDAY SURPRISE</div>
+
+        <h1>For Govu ♡</h1>
+
+        <p>
+            Some memories are locked...
+            <br>
+            Enter your birthday to unlock yours 🎂
+        </p>
+
+        <form id="unlockForm">
+            <label for="birthdate">YOUR DATE OF BIRTH</label>
+
+            <input
+                id="birthdate"
+                type="password"
+                inputmode="numeric"
+                maxlength="8"
+                placeholder="DDMMYYYY"
+                autocomplete="off"
+                required
+            >
+
+            <div class="small">
+                Enter your birthday in DDMMYYYY format.
+            </div>
+
+            <button type="submit">
+                Unlock My Memories ✨
+            </button>
+
+            <p id="error" aria-live="polite"></p>
+        </form>
+
+        <div class="small">Made with ❤️, just for you</div>
+    </div>
+
+    <script>
+        // Set Govu's actual birthdate in DDMMYYYY format.
+        const PASSWORD = "14102005";
+
+        document.getElementById("unlockForm")
+            .addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const entered =
+                    document.getElementById("birthdate").value.trim();
+
+                if (entered === PASSWORD) {
+                    window.location.href = "surprise.html";
+                } else {
+                    document.getElementById("error").textContent =
+                        "Oops! Try your birthday again 💗";
+
+                    document.getElementById("birthdate").value = "";
+                }
+            });
+    </script>
+
+</body>
+</html>

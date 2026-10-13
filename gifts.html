@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Govu's Birthday Gifts 🎁</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #180c2e, #502052, #a23e67);
+  padding: 25px 15px 45px;
+}
+
+h1 { font-size: clamp(28px, 5vw, 45px); }
+
+.subtitle {
+  color: #ffe1ef;
+  margin-bottom: 30px;
+}
+
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 22px;
+  max-width: 1050px;
+  margin: 25px auto;
+}
+
+.gift {
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 22px;
+  padding: 25px 15px;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 8px 25px #0003;
+  transition: transform .25s, background .25s;
+}
+
+.gift:hover {
+  transform: translateY(-8px);
+  background: rgba(255,255,255,.2);
+}
+
+.gift-emoji { font-size: 65px; }
+
+.gift h2 { margin: 12px 0 8px; }
+
+.gift p { color: #ffe2ed; }
+
+.open-btn, .back-btn {
+  border: none;
+  border-radius: 30px;
+  padding: 12px 22px;
+  background: #ffd166;
+  color: #38132d;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.page {
+  display: none;
+  max-width: 850px;
+  margin: 25px auto;
+  padding: 25px;
+  border-radius: 25px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid #ffffff40;
+  line-height: 1.8;
+}
+
+.page.active { display: block; }
+
+.big-emoji { font-size: 85px; }
+
+.letter {
+  text-align: left;
+  max-width: 650px;
+  margin: auto;
+  white-space: pre-line;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.photo-grid img, .photo-grid video {
+  width: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+input[type="file"] {
+  display: block;
+  max-width: 100%;
+  margin: 15px auto;
+}
+
+#birthday-cake { font-size: 110px; }
+
+@media (max-width: 480px) {
+  .gift-grid { grid-template-columns: 1fr; }
+  .page { padding: 18px; }
+}
+
+/* Gift 2 - Birthday Cake Background */
+#gift2 {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 620px;
+  padding: 45px 25px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 180, 240, 0.65);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(35, 5, 40, 0.86),
+      rgba(45, 5, 35, 0.63),
+      rgba(35, 5, 40, 0.40)
+    ),
+    url("cake.jpg") center center / cover no-repeat;
+
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
+}
+
+/* Keep content above the background */
+#gift2 > * {
+  position: relative;
+  z-index: 1;
+}
+
+#gift2 h1 {
+  font-size: clamp(30px, 5vw, 52px);
+  color: #fff5fb;
+  text-shadow: 0 3px 15px rgba(0, 0, 0, 0.45);
+}
+
+#gift2 p {
+  color: #fff1e8;
+  font-size: 18px;
+}
+
+#gift2 #birthday-cake {
+  font-size: 85px;
+  animation: cakeBounce 2s ease-in-out infinite;
+}
+
+#gift2 .open-btn {
+  background: #ffd34e;
+  color: #481039;
+  padding: 16px 32px;
+  font-size: 18px;
+  border-radius: 40px;
+  box-shadow: 0 5px 20px rgba(255, 209, 102, 0.25);
+}
+
+#gift2 .back-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+#gift2 #cakeMessage {
+  color: #ffe15c;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+@keyframes cakeBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 480px) {
+  #gift2 {
+    padding: 30px 16px;
+    min-height: 550px;
+    background-position: 60% center;
+  }
+
+  #gift2 p {
+    font-size: 16px;
+  }
+}
+/* Celebration falling animation */
+.celebration-item {
+  position: fixed;
+  top: -60px;
+  z-index: 9999;
+  pointer-events: none;
+  animation: fallDown linear forwards;
+  user-select: none;
+}
+
+@keyframes fallDown {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(115vh) rotate(720deg);
+    opacity: 0.2;
+  }
+}
+
+/* Gift 3: Hanging Friendship Photo Wall */
+#gift3 {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at top, #513052 0%, transparent 65%),
+    linear-gradient(160deg, #180e25, #30203d, #171020);
+  border: 1px solid #f8d98b80;
+  box-shadow: 0 0 30px #ffcc7720;
+  padding: 30px 18px 35px;
+}
+
+#gift3 h1 {
+  color: #ffe8b0;
+  text-shadow: 0 0 15px #ffca72;
+}
+
+#gift3 > p {
+  color: #ffe8dc;
+}
+
+/* Glowing fairy lights */
+.fairy-lights {
+  position: absolute;
+  top: 8px;
+  left: 4%;
+  width: 92%;
+  height: 30px;
+  border-top: 2px solid #b9a17a;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.fairy-lights span {
+  position: absolute;
+  top: -5px;
+  width: 9px;
+  height: 12px;
+  border-radius: 50% 50% 45% 45%;
+  background: #ffe6a0;
+  box-shadow: 0 0 7px 3px #ffd36b,
+              0 0 20px 5px #ffbf5555;
+  animation: lightGlow 1.5s ease-in-out infinite alternate;
+}
+
+.fairy-lights span:nth-child(1) { left: 5%; }
+.fairy-lights span:nth-child(2) { left: 20%; animation-delay: .3s; }
+.fairy-lights span:nth-child(3) { left: 35%; animation-delay: .7s; }
+.fairy-lights span:nth-child(4) { left: 50%; animation-delay: .2s; }
+.fairy-lights span:nth-child(5) { left: 65%; animation-delay: .9s; }
+.fairy-lights span:nth-child(6) { left: 80%; animation-delay: .4s; }
+.fairy-lights span:nth-child(7) { left: 95%; animation-delay: .6s; }
+
+@keyframes lightGlow {
+  from {
+    opacity: .55;
+    filter: brightness(.8);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1.4);
+  }
+}
+
+/* Rope */
+.photo-rope {
+  position: absolute;
+  top: 0;
+  left: 4%;
+  width: 92%;
+  height: 65px;
+  border-bottom: 3px solid #c69b62;
+  border-radius: 0 0 50% 50%;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px #000);
+}
+
+/* Hanging frames */
+.hanging-photo-wall {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 760px;
+  margin: 42px auto 28px;
+  align-items: start;
+}
+
+.hanging-frame {
+  position: relative;
+  min-width: 0;
+  padding: 8px 8px 15px;
+  background: #fff6df;
+  border: 1px solid #ffe0a2;
+  border-radius: 3px;
+  box-shadow: 0 5px 18px #0007,
+              0 0 13px #ffd98025;
+  transform-origin: top center;
+  animation: photoSwing 3s ease-in-out infinite alternate;
+}
+
+.hanging-frame:nth-child(2) {
+  margin-top: 28px;
+  animation-delay: -.8s;
+}
+
+.hanging-frame:nth-child(3) {
+  margin-top: 10px;
+  animation-delay: -1.4s;
+}
+
+.hanging-frame:nth-child(4) {
+  margin-top: 35px;
+  animation-delay: -.4s;
+}
+
+/* Clothespin and hanging string */
+.photo-string {
+  position: absolute;
+  width: 2px;
+  height: 42px;
+  background: #d8b37c;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.photo-clip {
+  position: absolute;
+  width: 13px;
+  height: 23px;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(4deg);
+  background: #d5a35f;
+  border-radius: 3px;
+  border: 1px solid #9a6d3b;
+  z-index: 3;
+}
+
+.photo-slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 4 / 4;
+  overflow: hidden;
+  background: linear-gradient(145deg, #44304a, #21172d);
+  color: #ffe8b7;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.photo-slot .placeholder-text {
+  padding: 5px;
+}
+
+.photo-slot img {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.photo-slot.has-photo img {
+  display: block;
+}
+
+.photo-slot.has-photo .placeholder-text {
+  display: none;
+}
+
+.frame-caption {
+  margin-top: 9px;
+  color: #67401f;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+@keyframes photoSwing {
+  from { transform: rotate(-2deg); }
+  to { transform: rotate(2deg); }
+}
+
+#gift3 input[type="file"] {
+  color: #fff2d5;
+  max-width: 100%;
+}
+
+#gift3 .back-btn {
+  margin-top: 20px;
+}
+
+@media (max-width: 520px) {
+  .hanging-photo-wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px 20px;
+    margin-top: 48px;
+    padding: 0 10px;
+  }
+
+  .hanging-frame:nth-child(2) {
+    margin-top: 25px;
+  }
+
+  .hanging-frame:nth-child(3) {
+    margin-top: 0;
+  }
+
+  .hanging-frame:nth-child(4) {
+    margin-top: 25px;
+  }
+
+  .photo-rope {
+    height: 55px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hanging-frame,
+  .fairy-lights span {
+    animation: none;
+  }
+}
+
+/* Gift 4 — Romantic Love Letter Texture */
+#gift4 {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at top left,
+      rgba(255, 182, 193, 0.35),
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at bottom right,
+      rgba(220, 145, 125, 0.25),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at center,
+      #fffdf5 0%,
+      #f8ecd5 75%,
+      #ead8b9 100%
+    );
+
+  padding: 35px 22px;
+  color: #633b35;
+  border: 8px solid #d9b98c;
+  box-shadow:
+    inset 0 0 35px rgba(125, 75, 40, 0.15),
+    0 10px 30px rgba(60, 30, 20, 0.2);
+}
+
+/* Subtle paper grain */
+#gift4::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      rgba(120, 85, 55, 0.07) 1px,
+      transparent 2px,
+      transparent 5px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      rgba(120, 85, 55, 0.04) 1px,
+      transparent 2px,
+      transparent 7px
+    );
+}
+
+/* Keep letter content above the texture */
+#gift4 > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Romantic letter heading */
+#gift4 h1 {
+  color: #8b3f50;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  text-shadow: 1px 1px 2px rgba(120, 50, 50, 0.12);
+}
+
+/* Love letter text */
+#gift4 p {
+  color: #65433d;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.9;
+  letter-spacing: 0.3px;
+}
+
+/* Decorative hearts */
+#gift4 .big-emoji {
+  filter: drop-shadow(0 3px 4px rgba(130, 50, 60, 0.2));
+}
+
+#gift4 .letter-decoration {
+  font-size: 25px;
+  letter-spacing: 12px;
+  margin: 5px 0 20px;
+  opacity: 0.8;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<header id="giftHeader">
+  <h1>🎉 Happy Birthday, Govu! 🎉</h1>
+  <p class="subtitle">
+    Five special gifts, made with friendship and memories ❤️
+  </p>
+</header>
+
+<main id="giftMenu" class="gift-grid">
+
+  <article class="gift" onclick="openGift(1)">
+    <div class="gift-emoji">🎁</div>
+    <h2>Gift 1</h2>
+    <p>A Birthday Wish</p>
+    <button class="open-btn">Open Gift 💌</button>
+  </article>
+
+  <article class="gift" onclick="openGift(2)">
+    <div class="gift-emoji">🎂</div>
+    <h2>Gift 2</h2>
+    <p>A Cake Just for You</p>
+    <button class="open-btn">Open Gift 🎉</button>
+  </article>
+
+  <article class="gift" onclick="openGift(3)">
+    <div class="gift-emoji">📸</div>
+    <h2>Gift 3</h2>
+    <p>Our Photo Album</p>
+    <button class="open-btn">Open Gift 🖼️</button>
+  </article>
+
+  <article class="gift" onclick="openGift(4)">
+    <div class="gift-emoji">💌</div>
+    <h2>Gift 4</h2>
+    <p>A Letter from the Heart</p>
+    <button class="open-btn">Open Gift ❤️</button>
+  </article>
+
+  <article class="gift" onclick="openGift(5)">
+    <div class="gift-emoji">🎬</div>
+    <h2>Gift 5</h2>
+    <p>Our Video Memories</p>
+    <button class="open-btn">Open Gift 🎥</button>
+  </article>
+
+</main>
+
+<section id="gift1" class="page">
+  <div class="big-emoji">🎁💖</div>
+  <h1>A Special Birthday Wish</h1>
+  <p>
+    Happy Birthday, Govu! 🥳❤️<br><br>
+    You are not just a friend; you are part of our story.
+    May this year bring you happiness, good health, success,
+    and countless reasons to smile.<br><br>
+    Keep being the amazing person you are. Your best days
+    are still ahead of you! 🎉
+  </p>
+  <button class="back-btn" onclick="goBack()">← Back to Gifts</button>
+</section>
+
+
+<section id="gift2" class="page">
+  <div id="birthday-cake"></div>
+
+  <h1>Happy Birthday, Govu!</h1>
+
+  <p style="font-size:24px;">
+    Make a wish, birthday boy! 🕯️✨
+  </p>
+
+  <p>
+    May all your dreams come true, may your hard work pay off,
+    and may your life always be full of laughter and love. ❤️
+  </p>
+
+  <button class="open-btn" onclick="celebrate()">
+    Celebrate! 🎉
+  </button>
+
+  <p id="cakeMessage"></p>
+
+  <button class="back-btn" onclick="goBack()">
+    ← Back to Gifts
+  </button>
+</section>
+
+
+<!-- GIFT 3: Hanging Friendship Photo Wall -->
+<section id="gift3" class="page">
+
+  <div class="fairy-lights" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="photo-rope" aria-hidden="true"></div>
+
+  <div class="big-emoji">📸✨</div>
+
+  <h1>Our Friendship Memories</h1>
+
+  <p>
+    Four photos, a thousand memories. ❤️<br>
+    Our friendship deserves its own little corner of the world.
+  </p>
+
+  <div class="hanging-photo-wall">
+
+    <div class="hanging-frame">
+      <div class="photo-string"></div>
+      <div class="photo-clip"></div>
+      
+<div class="photo-slot has-photo">
+  <img src="First.jpeg" alt="Our friendship memory">
+</div>
+      <div class="frame-caption">The Beginning ❤️</div>
+    </div>
+
+    <div class="hanging-frame">
+      <div class="photo-string"></div>
+      <div class="photo-clip"></div>
+      <div class="photo-slot has-photo">
+  <img src="Second.jpeg" alt="Our friendship memory">
+</div>
+      <div class="frame-caption">Crazy Us 😂</div>
+    </div>
+
+    <div class="hanging-frame">
+      <div class="photo-string"></div>
+      <div class="photo-clip"></div>
+      <div class="photo-slot has-photo">
+  <img src="Third.jpeg" alt="Our friendship memory">
+</div>
+
+      <div class="frame-caption">Best Days 🫶</div>
+    </div>
+
+    <div class="hanging-frame">
+      <div class="photo-string"></div>
+      <div class="photo-clip"></div>
+      <div class="photo-slot has-photo">
+  <img src="four.jpg" alt="Our friendship memory">
+</div>
+
+      <div class="frame-caption">Forever Us ♾️</div>
+    </div>
+
+  </div>
+
+  <p>favourite photos hang on our memory wall. ✨</p>
+
+   <button class="back-btn" onclick="goBack()">
+    ← Back to Gifts
+  </button>
+
+</section>
+<section id="gift4" class="page">
+  <div class="big-emoji">💌</div>
+  <h1>A Letter for Govu</h1>
+  <div class="letter">
+Dear Govu ❤️,
+
+Happy Birthday !! 🎂
+
+From our CSN days to all the festivals,
+random jokes, crazy moments, and ups and downs,
+we have collected memories that will stay with us
+for a lifetime.
+
+Shubham, Sunil, Swapnil, and all of us have shared
+a journey that is much more than just friendship.
+Even when life gets difficult, these memories remind
+us that we are never alone.
+
+I wish you a future full of success, happiness,
+good health, and opportunities. Keep chasing your
+dreams and never forget the people who have been
+part of your journey.
+
+No matter where life takes us, our friendship and
+our group memories will always mean something special.
+
+Once again, Happy Birthday, Govu!
+Stay happy, keep smiling, and treat us soon! 😂❤️
+
+With lots of love,
+Your Friends ❤️
+  </div>
+  <button class="back-btn" onclick="goBack()">← Back to Gifts</button>
+</section>
+
+
+
+<section id="gift5" class="page">
+  <div class="big-emoji">🎬</div>
+  <h1>Our Year in Memories</h1>
+
+  <p>Every clip holds a memory. Every memory tells our story. ❤️</p>
+
+  <video controls playsinline preload="metadata"
+         style="width:100%; max-width:300px; border-radius:18px;">
+    <source src="clip.mp4" type="video/mp4">
+    Your browser does not support video playback.
+  </video>
+
+  <p>Happy Birthday, Govu! 🎂❤️</p>
+
+  <button class="back-btn" onclick="goBack()">← Back to Gifts</button>
+</section>
+
+<script>
+function openGift(number) {
+  document.getElementById("giftMenu").style.display = "none";
+  document.getElementById("giftHeader").style.display = "none";
+
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById("gift" + number).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function goBack() {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById("giftMenu").style.display = "grid";
+  document.getElementById("giftHeader").style.display = "block";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function celebrate() {
+  document.getElementById("cakeMessage").textContent =
+    "🎉🎊 Happy Birthday, Govu! Let the celebrations begin! 🎊🎉";
+}
+
+
+
+document.getElementById("videoInput").addEventListener("change", function() {
+  const file = this.files[0];
+  if (!file) return;
+
+  const video = document.getElementById("memoryVideo");
+  video.src = URL.createObjectURL(file);
+  video.style.display = "block";
+});
+
+
+document.getElementById("photoInput").addEventListener("change", function() {
+  const files = Array.from(this.files)
+    .filter(file => file.type.startsWith("image/"))
+    .slice(0, 4);
+
+  const frames = document.querySelectorAll(
+    "#gift3 .hanging-frame"
+  );
+
+  frames.forEach((frame, index) => {
+    const slot = frame.querySelector(".photo-slot");
+    const img = slot.querySelector("img");
+
+    // Clear the previous photo
+    if (img.dataset.objectUrl) {
+      URL.revokeObjectURL(img.dataset.objectUrl);
+      delete img.dataset.objectUrl;
+    }
+
+    img.removeAttribute("src");
+    slot.classList.remove("has-photo");
+
+    if (files[index]) {
+      const imageUrl = URL.createObjectURL(files[index]);
+
+      img.src = imageUrl;
+      img.dataset.objectUrl = imageUrl;
+      slot.classList.add("has-photo");
+    }
+  });
+
+  if (files.length > 0) {
+    document.querySelector("#gift3 h1").textContent =
+      "Our Friendship Memories ❤️";
+  }
+});
+
+</script>
+
+<script>
+function celebrate() {
+  const emojis = [
+    "👏", "🎈", "🎉", "🥳", "🎊",
+    "🎂", "✨", "💖", "🙌", "🎁"
+  ];
+
+  // Create a burst of falling celebration emojis
+  for (let i = 0; i < 80; i++) {
+    const item = document.createElement("div");
+
+    item.className = "celebration-item";
+    item.textContent =
+      emojis[Math.floor(Math.random() * emojis.length)];
+
+    item.style.left = Math.random() * 100 + "vw";
+    item.style.fontSize = (20 + Math.random() * 25) + "px";
+    item.style.animationDuration = (3 + Math.random() * 4) + "s";
+    item.style.animationDelay = Math.random() * 2 + "s";
+
+    document.body.appendChild(item);
+
+    setTimeout(() => {
+      item.remove();
+    }, 10000);
+  }
+}
+
+
+</script>
+
+
+</body>
+</html>

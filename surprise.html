@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Surprise for Govu 💌</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+            font-family: Georgia, serif;
+            color: #493b35;
+            background: radial-gradient(circle at top, #f7dcd5, #f5efdf 70%);
+        }
+
+        .card {
+            width: 100%;
+            max-width: 620px;
+            padding: clamp(28px, 6vw, 55px) 22px;
+            background: #fffaf0;
+            border: 1px dashed #c7a18f;
+            box-shadow: 5px 7px 0 #d7c5ac;
+            text-align: center;
+        }
+
+        .envelope {
+            font-size: 65px;
+        }
+
+        .label {
+            margin-top: 15px;
+            font: bold 11px Arial, sans-serif;
+            letter-spacing: 3px;
+            color: #a45b51;
+        }
+
+        h1 {
+            color: #a94f45;
+            font-size: clamp(29px, 7vw, 46px);
+            line-height: 1.2;
+            margin: 18px 0;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            min-height: 65px;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        #yesBtn {
+            background: #b84d43;
+            color: white;
+            box-shadow: 0 4px 0 #78453e;
+        }
+
+        #yesBtn:hover {
+            background: #963b34;
+        }
+
+        #noBtn {
+            background: #ead8ce;
+            color: #6c4b43;
+        }
+
+        #message {
+            min-height: 25px;
+            margin-top: 22px;
+            color: #a94f45;
+            font-style: italic;
+        }
+
+        .footer {
+            font-size: 13px;
+            color: #9b8172;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="card">
+        <div class="envelope">💌</div>
+
+        <div class="label">YOU UNLOCKED THE FIRST SECRET</div>
+
+        <h1>I have planned a surprise for you!</h1>
+
+        <p>
+            Hey Govu! ❤️
+            <br>
+            I have something special waiting for you.
+            <br>
+            Are you ready to open your birthday surprises? 🎁
+        </p>
+
+        <div class="buttons">
+            <button id="yesBtn">YES! 🎉</button>
+            <button id="noBtn">No 🙈</button>
+        </div>
+
+        <p id="message" aria-live="polite"></p>
+
+        <div class="footer">
+            Five gifts. Countless memories. One amazing friendship. ❤️
+        </div>
+    </main>
+
+    <script>
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+        const message = document.getElementById("message");
+
+        // YES opens the five-gift page.
+        yesBtn.addEventListener("click", function() {
+            window.location.href = "gifts.html";
+        });
+
+        // The NO button playfully dodges the mouse.
+        noBtn.addEventListener("mouseenter", function() {
+            const x = Math.round(Math.random() * 100 - 50);
+            const y = Math.round(Math.random() * 50 - 25);
+
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        });
+
+        noBtn.addEventListener("click", function() {
+            message.textContent =
+                "Hehe! No is not an option today. Try YES! 😜❤️";
+
+            noBtn.textContent = "No? 🙈";
+        });
+    </script>
+
+</body>
+</html>
